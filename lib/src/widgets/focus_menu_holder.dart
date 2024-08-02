@@ -100,6 +100,7 @@ class _FocusedMenuHolderState extends State<FocusedMenuHolder> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        behavior: HitTestBehavior.translucent,
         key: containerKey,
         onTap: () async {
           widget.onPressed?.call();
