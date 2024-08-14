@@ -192,7 +192,7 @@ class FocusedMenuDetails extends StatelessWidget {
       double? topPopupOffset;
 
       if (childOffset.dy >= (size.height / 2)) {
-        bottomPopupOffset = size.height - childOffset.dy - menuOffset!;
+        bottomPopupOffset = size.height - childOffset.dy + menuOffset!;
       } else {
         topPopupOffset = childOffset.dy + childSize!.height + menuOffset!;
       }
