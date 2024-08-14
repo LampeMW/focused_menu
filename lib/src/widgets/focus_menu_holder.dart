@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:focused_menu/src/models/focused_menu_item.dart';
-import 'package:focused_menu/src/widgets/focused_menu_datails.dart';
+import 'package:focused_menu/focused_menu.dart';
 
 class FocusedMenuHolderController {
   late _FocusedMenuHolderState _widgetState;
@@ -27,7 +26,15 @@ class FocusedMenuHolder extends StatefulWidget {
   final Widget child;
   final double? menuItemExtent;
   final double? menuWidth;
-  final List<FocusedMenuItem> menuItems;
+  final List<FocusedMenuItem>? menuItems;
+
+  /// Optionally display your own custom [Widget] with your own styling.
+  ///
+  /// [itemExtent] is not used for this, and because we don't know the final
+  /// height of this popupWidget, the widget will be shown above [child] if
+  /// [child] is on the bottom half of the screen, or below the [child] if it on
+  /// the top half of the screen.
+  final FocusedPopupWidget? popupWidget;
   final bool? animateMenuItems;
   final BoxDecoration? menuBoxDecoration;
   final Function? onPressed;
@@ -49,10 +56,13 @@ class FocusedMenuHolder extends StatefulWidget {
   final VoidCallback? onOpened;
   final VoidCallback? onClosed;
 
+  /// Either [menuItems] or [popupWidget] are required to be passed in to
+  /// [FocusedMenuHolder] or it will throw an assert exception.
   const FocusedMenuHolder({
     Key? key,
     required this.child,
-    required this.menuItems,
+    this.menuItems,
+    this.popupWidget,
     this.onPressed,
     this.duration,
     this.menuBoxDecoration,
@@ -135,6 +145,7 @@ class _FocusedMenuHolderState extends State<FocusedMenuHolder> {
               childOffset: childOffset,
               childSize: childSize,
               menuItems: widget.menuItems,
+              popupWidget: widget.popupWidget,
               blurSize: widget.blurSize,
               menuWidth: widget.menuWidth,
               blurBackgroundColor: widget.blurBackgroundColor,
