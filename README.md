@@ -1,3 +1,8 @@
+## Changes from Original
+Added `popupWidget` property to `FocusedMenuHolder` that you can use instead of menuItems to display a single custom widget as the popup instead of a list of MenuItems
+
+---
+
 <h2 align="center"> Flutter widget to create focused menu easily 🚀 </h2>
 
 <p align="center">
@@ -12,6 +17,7 @@
 </p>
 
 ---
+
 
 This is an easy to implement package for adding Focused Menu to Flutter Applications
 
