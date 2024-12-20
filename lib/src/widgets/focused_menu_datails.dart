@@ -184,9 +184,14 @@ class FocusedMenuDetails extends StatelessWidget {
       );
     } else {
       final maxMenuWidth = menuWidth ?? (size.width * 0.70);
-      final leftOffset = (childOffset.dx + maxMenuWidth) < size.width
-          ? childOffset.dx
-          : (childOffset.dx - maxMenuWidth + childSize!.width);
+      double leftOffset = 0.0;
+      if (popupWidget!.centered) {
+        leftOffset = (size.width - maxMenuWidth) / 2;
+      } else {
+        leftOffset = (childOffset.dx + maxMenuWidth) < size.width
+            ? childOffset.dx
+            : (childOffset.dx - maxMenuWidth + childSize!.width);
+      }
 
       double? bottomPopupOffset;
       double? topPopupOffset;
