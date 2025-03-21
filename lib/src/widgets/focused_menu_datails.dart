@@ -127,6 +127,7 @@ class FocusedMenuDetails extends StatelessWidget {
                                 item.onPressed();
                               },
                               child: Container(
+                                  width: maxMenuWidth,
                                   alignment: Alignment.center,
                                   margin: const EdgeInsets.only(bottom: 1),
                                   color: item.backgroundColor ?? Colors.white,
@@ -138,7 +139,7 @@ class FocusedMenuDetails extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        item.title,
+                                        Flexible(child: item.title),
                                         if (item.trailing != null) ...[
                                           item.trailing!
                                         ]
