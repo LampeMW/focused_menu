@@ -56,6 +56,9 @@ class FocusedMenuHolder extends StatefulWidget {
   final VoidCallback? onOpened;
   final VoidCallback? onClosed;
 
+  /// Allow the child to be tapped while the menu is open.
+  final bool allowOnPressedWhileOpen;
+
   /// Either [menuItems] or [popupWidget] are required to be passed in to
   /// [FocusedMenuHolder] or it will throw an assert exception.
   const FocusedMenuHolder({
@@ -79,6 +82,7 @@ class FocusedMenuHolder extends StatefulWidget {
     this.controller,
     this.onOpened,
     this.onClosed,
+    this.allowOnPressedWhileOpen = false,
   }) : super(key: key);
 
   @override
@@ -154,6 +158,8 @@ class _FocusedMenuHolderState extends State<FocusedMenuHolder> {
               menuOffset: widget.menuOffset ?? 0,
               toolbarActions: widget.toolbarActions,
               enableMenuScroll: widget.enableMenuScroll,
+              onPressed: widget.onPressed,
+              allowOnPressedWhileOpen: widget.allowOnPressedWhileOpen,
             ),
           );
         },

@@ -18,6 +18,8 @@ class FocusedMenuDetails extends StatelessWidget {
   final Color? blurBackgroundColor;
   final double? bottomOffsetHeight;
   final double? menuOffset;
+  final bool allowOnPressedWhileOpen;
+  final Function? onPressed;
 
   /// Actions to be shown in the toolbar.
   final List<Widget>? toolbarActions;
@@ -41,7 +43,9 @@ class FocusedMenuDetails extends StatelessWidget {
       required this.enableMenuScroll,
       this.bottomOffsetHeight,
       this.menuOffset,
-      this.toolbarActions})
+      this.toolbarActions,
+      this.allowOnPressedWhileOpen = false,
+      this.onPressed})
       : assert(menuItems != null || popupWidget != null),
         assert(!(menuItems != null && popupWidget != null)),
         super(key: key);
@@ -173,8 +177,14 @@ class FocusedMenuDetails extends StatelessWidget {
               Positioned(
                   top: childOffset.dy,
                   left: childOffset.dx,
-                  child: AbsorbPointer(
-                      absorbing: true,
+                  child: GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        Navigator.pop(context);
+                        if (allowOnPressedWhileOpen) {
+                          onPressed?.call();
+                        }
+                      },
                       child: Container(
                           width: childSize!.width,
                           height: childSize!.height,
@@ -248,8 +258,14 @@ class FocusedMenuDetails extends StatelessWidget {
             Positioned(
                 top: childOffset.dy,
                 left: childOffset.dx,
-                child: AbsorbPointer(
-                    absorbing: true,
+                child: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      Navigator.pop(context);
+                      if (allowOnPressedWhileOpen) {
+                        onPressed?.call();
+                      }
+                    },
                     child: SizedBox(
                         width: childSize!.width,
                         height: childSize!.height,
